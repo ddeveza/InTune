@@ -1,0 +1,9 @@
+.tile {
+    display: flex;
+    justify-content: space-between;
+    background-color: gray;
+    width:400px;
+    height:200px;
+    padding: 10px;
+    
+}

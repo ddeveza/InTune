@@ -1,0 +1,33 @@
+.header {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-bottom: 100px;
+}
+.header__info {
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.header__userProfile {
+    display: flex;
+    align-items: center;
+}
+
+
+.home_btn {
+    min-width: 50%;
+    max-width: 100%;
+    font-family: Arial;
+    font-weight: 700;
+    width: 170px;
+    color: white;
+    padding: 7px;
+    background-color: rgba(54, 54, 54, 1);
+}
