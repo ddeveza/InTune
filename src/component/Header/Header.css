@@ -1,3 +1,5 @@
+
+
 .header {
     display:flex;
     align-items: center;
@@ -7,12 +9,36 @@
     padding-left: 100px;
     padding-right: 100px;
     margin-bottom: 100px;
+    margin-top: 20px;
+}
+
+.header > img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block; /* remove extra space below image */
 }
 .header__info {
     display: flex;
     flex-direction: column;
-    
+    align-items: flex-end;
+    row-gap: 20px;
 
+}
+
+.header__userProfile > img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin: 1px;
+     
+}
+
+.header__userProfile > p {
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding-right: 15px;
+    /* //font-family:  */
+    color: rgb(100 101 101);
 }
 
 .header__userProfile {
@@ -22,12 +48,22 @@
 
 
 .home_btn {
-    min-width: 50%;
-    max-width: 100%;
-    font-family: Arial;
-    font-weight: 700;
-    width: 170px;
-    color: white;
-    padding: 7px;
-    background-color: rgba(54, 54, 54, 1);
+   
+    min-width: 50% !important;
+    max-width: 100% !important;
+    font-family: Arial !important;
+    font-weight: 700 !important;
+    width: 160px !important;
+    color: white !important;
+    padding: 7px !important;
+    background-color: rgb(255, 255, 255) !important;
+    color: rgba(42, 129, 163, 1) !important;
+    border: 1px solid rgba(42, 129, 163, 1) !important;
+    margin-right: 10px !important;
+}
+
+.header__btn{
+    display:flex;
+    padding-right: 12px;
+   
 }

@@ -2,11 +2,12 @@ import React from 'react'
 import './Header.css'
 import { Button } from '@material-ui/core';
 import SignOut from '../SignOut';
+import logo from '../../logo/Assets/BeCloudSafe Logo Cropped.png';
 const Header = ({userProfile}) => {
     
     return (
         <div className='header'>
-            <img src="" alt="InTuneLogo" />
+            <img src={logo} alt="InTuneLogo" />
             <div className="header__info">
                 <div className="header__userProfile">
                     <p className="header__welcomeuse">

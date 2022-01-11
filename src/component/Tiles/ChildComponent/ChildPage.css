@@ -1,0 +1,20 @@
+.child__container {
+    background-color: white;
+    width: 900px;
+    height: 620px;
+    display:flex;
+    align-self: center;
+    box-sizing: content-box;
+    -webkit-filter: drop-shadow(2px 2px 5px  rgb(120 196 217));
+    border-radius: 1%;
+    outline : none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -42%);
+    padding:10px;
+}
+
+.modal{
+    position: relative;
+}

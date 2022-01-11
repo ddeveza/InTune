@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     maxWidth: "100%",
     fontFamily: "Arial",
     fontWeight: "700",
-    width: "170px",
+    width: "160px",
     color: "white",
     padding: "7px",
     backgroundColor: "rgba(54, 54, 54, 1)",

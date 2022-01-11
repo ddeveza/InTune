@@ -1,9 +1,53 @@
 .tile {
     display: flex;
-    justify-content: space-between;
-    background-color: gray;
+    flex-direction: column;
     width:400px;
     height:200px;
     padding: 10px;
+    background-color: rgba(255, 255, 255, 1);
+    box-sizing: content-box;
+    -webkit-filter: drop-shadow(3px 2px 3px  rgb(120 196 217));
+    cursor: pointer;
+
+}
+
+
+
+.tile__head{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
     
+}
+
+.tile__name__logo {
+    display: flex;
+    align-items: center;
+    
+}
+
+.tile__name__logo > p {
+    padding-right: 10px;
+}
+
+
+
+.tile__body {
+    display: flex;
+    justify-content: space-between;
+    
+   
+    
+}
+
+.tile__icon{
+    color: green;
+}
+
+.tile__name__logo > img {
+    width: 50px;
+    height:50px;
+    border-radius: 50%;
+    margin: 1px;
 }

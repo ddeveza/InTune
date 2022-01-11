@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { blobToBase64, getUserAvatar, getUserPhoto, getUserProfile,imgPlaceHolder } from "../graph";
+import { blobToBase64, getUserAvatar, getUserPhoto, getUserProfile, imgPlaceHolder } from "../graph";
 
 import Header from "./Header/Header";
 import ListofTile from "./Tiles/ListofTile";
+import "./Home.css";
 
 const Home = () => {
   const isMounted = useRef(false);
   const [userProfile, setUserProfile] = useState();
-  
+
   const __getFullUserProfile = async () => {
     const userProfile = await getUserProfile();
     if (userProfile?.error) {
@@ -30,7 +31,6 @@ const Home = () => {
       }
 
       setUserProfile(userProfile);
-   
     }
   };
 
@@ -43,10 +43,9 @@ const Home = () => {
 
   useEffect(() => {
     if (isMounted.current === true) {
+      __getFullUserProfile();
 
-        __getFullUserProfile();
-        
-        console.log(`get user profile ....`)
+      console.log(`get user profile ....`);
       //fetch user profile
       //fetch all device
     }
@@ -57,8 +56,8 @@ const Home = () => {
 
   return (
     <div className="home">
-      <Header  userProfile={userProfile}/>
-      <ListofTile/>
+      <Header userProfile={userProfile} />
+      <ListofTile />
     </div>
   );
 };
