@@ -214,7 +214,7 @@ export async function getUserPhoto() {
 }
 
 export async function getMemberPhoto(userId) {
-  const accounts = await instance.getAllAccounts();
+  const accounts = instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token = await instance.acquireTokenSilent(requestMsal);
   if (token !== undefined) {
@@ -323,4 +323,32 @@ export const manageDevices = async () => {
   }
 };
 
-export const checkDeviceUser = async () => {};
+export const getOwnerDetails = async (deviceID) => {
+  const accounts = instance.getAllAccounts();
+  const requestMsal = { ...loginRequest, account: accounts[0] };
+  const token = await instance.acquireTokenSilent(requestMsal);
+
+  if (token) {
+    const headers = {
+      Authorization: `Bearer ${token.accessToken}`,
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    };
+
+    const options = {
+      headers: headers,
+    };
+    return axios
+      .get(graphConfig.deviceOwner.replace("[deviceID]", deviceID), options)
+      .then((res) => {
+        return res.data.value;
+      })
+      .catch(function (error) {
+        return { error: error };
+      });
+  } else {
+    return { error: "Something went wrong during API Call" };
+  }
+
+
+};

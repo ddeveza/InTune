@@ -5,8 +5,8 @@ import userLogo from "../../logo/Avatar.png";
 import { useToggleModal } from "../../customHook/useToggleModal";
 import ChildPage from "./ChildComponent/ChildPage";
 
-const Tile = () => {
-
+const Tile = (props) => {
+  console.log(props);  
   const [toggle, handleToggle] = useToggleModal(false);
 
   return (
