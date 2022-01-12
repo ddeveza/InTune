@@ -2,7 +2,7 @@ import React from 'react'
 import './Header.css'
 import { Button } from '@material-ui/core';
 import SignOut from '../SignOut';
-import logo from '../../logo/Assets/BeCloudSafe Logo Cropped.png';
+import logo from '../../logo/InTune-image.png';
 const Header = ({userProfile}) => {
     
     return (

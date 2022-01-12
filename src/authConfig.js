@@ -65,12 +65,44 @@ export const msalConfig = {
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 export const loginRequest = {
-  scopes: ["AuditLog.Read.All", "Directory.Read.All", "SecurityEvents.Read.All", "SecurityEvents.ReadWrite.All", "openid", "profile", "email", "User.Read", "User.ReadBasic.All"],
+  scopes: [
+    "AuditLog.Read.All",
+    "Directory.Read.All",
+    "SecurityEvents.Read.All",
+    "SecurityEvents.ReadWrite.All",
+    "openid",
+    "profile",
+    "email",
+    "User.Read",
+    "User.ReadBasic.All",
+    "DeviceManagementConfiguration.Read.All",
+    "DeviceManagementConfiguration.ReadWrite.All",
+    "DeviceManagementManagedDevices.Read.All",
+    "DeviceManagementManagedDevices.ReadWrite.All",
+    "DeviceManagementServiceConfig.Read.All",
+    "DeviceManagementServiceConfig.ReadWrite.All",
+  ],
 };
 
 export const tokenRequest = {
   // scopes: ["Calendars.Read", "Group.ReadWrite.All", "openid", "profile", "Tasks.ReadWrite", "User.Read", "User.ReadBasic.All"]
-  scopes: ["AuditLog.Read.All", "Directory.Read.All", "SecurityEvents.Read.All", "SecurityEvents.ReadWrite.All", "openid", "profile", "email", "User.Read", "User.ReadBasic.All"],
+  scopes: [
+    "AuditLog.Read.All",
+    "Directory.Read.All",
+    "SecurityEvents.Read.All",
+    "SecurityEvents.ReadWrite.All",
+    "openid",
+    "profile",
+    "email",
+    "User.Read",
+    "User.ReadBasic.All",
+    "DeviceManagementConfiguration.Read.All",
+    "DeviceManagementConfiguration.ReadWrite.All",
+    "DeviceManagementManagedDevices.Read.All",
+    "DeviceManagementManagedDevices.ReadWrite.All",
+    "DeviceManagementServiceConfig.Read.All",
+    "DeviceManagementServiceConfig.ReadWrite.All",
+  ],
 };
 
 /**
@@ -95,6 +127,8 @@ export const graphConfig = {
   numGlobalAdminAcct: `https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`,
   percentAcctMFA: `https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`,
   dormant: `https://graph.microsoft.com/beta/users?$select=displayName,userPrincipalName,mail,id,CreatedDateTime,signInActivity,UserType`,
+  devices: `https://graph.microsoft.com/beta/devices?$select=displayName, id, deviceId, registrationDateTime, approximateLastSignInDateTime, operatingSystem, operatingSystemVersion, profileType,trustType`,
+  manageDevices: `https://graph.microsoft.com/beta/deviceManagement/managedDevices?$select=deviceName,operatingSystem,osVersion,deviceType,serialNumber,model,manufacturer,imei,phoneNumber,userDisplayName,subscriberCarrier,joinType,enrolledDateTime,lastSyncDateTime,ownerType,managedDeviceName,azureActiveDirectoryDeviceId,autopilotEnrolled`,
   // getPlans: `https://graph.microsoft.com/v1.0/groups/[group-id]/planner/plans`,
   // getBuckets: "https://graph.microsoft.com/v1.0/planner/plans/[plan-id]/buckets",
   // postBucket: "https://graph.microsoft.com/v1.0/planner/buckets",

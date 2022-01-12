@@ -5,6 +5,11 @@ import Header from "./Header/Header";
 import ListofTile from "./Tiles/ListofTile";
 import "./Home.css";
 
+
+
+
+
+
 const Home = () => {
   const isMounted = useRef(false);
   const [userProfile, setUserProfile] = useState();
@@ -33,6 +38,9 @@ const Home = () => {
       setUserProfile(userProfile);
     }
   };
+
+
+
 
   useEffect(() => {
     isMounted.current = true;
