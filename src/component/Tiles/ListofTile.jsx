@@ -3,52 +3,31 @@ import Tile from "./Tile";
 import "./ListofTile.css";
 import { blobToBase64, getAllDevices, getMemberPhoto, getOwnerDetails, getUserAvatar, imgPlaceHolder, manageDevices } from "../../graph";
 import _ from "lodash";
-import { ContactPageOutlined } from "@mui/icons-material";
+
 
 const ListofTile = () => {
   const isMounted = useRef(false);
-  const [devicesPerUser, setDevicesPerUser] = useState([]);
+  const [devicesPerUser, setDevicesPerUser] = useState({});
+  const [isLoading , setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const _getAllDevice = async () => {
+
     const allDevices = await getAllDevices();
 
     if (allDevices?.error) {
       console.log("There is an error in api calling all devices");
     } else {
-      console.log(allDevices);
+      //console.log(allDevices);
       console.log("Successfully call the api for all devices");
 
       if (allDevices.length > 0) {
+        setError(false);
         /*  */
         //iterate each devices
         let listOfManageDevices = await _getAllManageDevices();
-        console.log(listOfManageDevices);
+        //console.log(listOfManageDevices);
 
-        /*   let newListoFDevices = _.map(allDevices, (device) => {
-          let temp = {};
-          let mobile = false;
-          //check if mobile or nonmobile  //Android, iOS, iPhone
-          if (device.operatingSystem === "Android" || device.operatingSystem === "iOS" || device.operatingSystem === "iPhone") {
-            mobile = true;
-          }
-          //check if manage or unmanage devices
-          let foundManageDevices = _.findIndex(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
-          if (foundManageDevices > -1) {
-            let { lastSyncDateTime } = _.find(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
-
-            temp = { ...device, manageDevices: true, lastSyncDateTime };
-          } else {
-            temp = { ...device, manageDevices: false };
-          }
-
-          //Get the owner profile
-          let devOwner =await _getOwnerProfile(device.id);
-
-          return { ...temp, mobile, devOwner };
-
-          // console.log(owner);
-        });
- */
         let newListoFDevices = [];
         for (const device of allDevices) {
           //console.log(device);
@@ -61,6 +40,7 @@ const ListofTile = () => {
           //check if manage or unmanage devices
           let foundManageDevices = _.findIndex(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
           if (foundManageDevices > -1) {
+
             let { lastSyncDateTime } = _.find(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
 
             temp = { ...device, manageDevices: true, lastSyncDateTime };
@@ -71,20 +51,23 @@ const ListofTile = () => {
           //Get the owner profile
           let detailsDeviceOwner = await _getOwnerProfile(device.id);
 
-          const { displayName: devOwner, photo } = detailsDeviceOwner[0];
+          const { displayName: devOwner, photo ,id:ownerID } =await detailsDeviceOwner[0];
 
-          temp = { ...temp, mobile, devOwner, photo };
+          temp = { ...temp, mobile, devOwner, photo , ownerID};
           newListoFDevices = [...newListoFDevices, temp];
           temp = {};
         }
 
         const groupListByUser = _.groupBy(newListoFDevices, "devOwner");
-        console.log(groupListByUser);
+        //console.log(groupListByUser);
         setDevicesPerUser(groupListByUser);
+        setIsLoading(false);
         //look each devices from alldevices to search in listOfManageDevices
         //if found this manageDevice : true : manageDevice false
         //
       } else {
+        setIsLoading(false);
+        setError(true);
         console.log("0 Devices");
       }
     }
@@ -151,20 +134,19 @@ const ListofTile = () => {
   // let arrayTiles = [`Tile1` , `Tile2`,`Tile3`];
 
   const ArrayOfTiles = () => {
-     return  _.map(devicesPerUser, (eachDevice , index) => {
-      return <Tile key={index} {...eachDevice} />;
+    return _.map(devicesPerUser, (eachDevice, index) => {
+      return <Tile key={index} devices = {eachDevice} name={index}/>;
     });
-
-   
   };
 
-  const Tiles = () => {
-    return <Tile />;
-  };
+ 
 
   return (
     <div className="container">
       <div className="tiles__container">
+        {isLoading && <h1>Loading.......</h1>}
+
+        {error &&  <h1 style={{color:'red'}}>0 devices found......</h1>}
         <ArrayOfTiles />
         {/*  <Tile />
         <Tile />

@@ -139,7 +139,7 @@ export const getSecurityAPI = async () => {
   }
 };
 
-export const getDormantAcct = async () => {
+export const getDormantAcct = async (ownerID) => {
   const accounts = instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token = await instance.acquireTokenSilent(requestMsal);
@@ -171,8 +171,8 @@ export const getDormantAcct = async () => {
               noOfDaysFromLastSignIn = Math.round(Math.abs((secondDate - firstDate) / oneDay));
             }
             return { ...eachAccount, noOfDaysFromLastSignIn };
-          })
-          .filter((eachAccount) => eachAccount.signInActivity !== undefined && eachAccount.noOfDaysFromLastSignIn >= 30);
+          }).filter(eachval => eachval.id === ownerID);
+          
 
         return dormantAccount;
       })
@@ -185,7 +185,7 @@ export const getDormantAcct = async () => {
 };
 
 export async function getUserPhoto() {
-  const accounts = await instance.getAllAccounts();
+  const accounts =  instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token = await instance.acquireTokenSilent(requestMsal);
   if (token !== undefined) {
@@ -349,6 +349,4 @@ export const getOwnerDetails = async (deviceID) => {
   } else {
     return { error: "Something went wrong during API Call" };
   }
-
-
 };
