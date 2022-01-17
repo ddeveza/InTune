@@ -5,12 +5,8 @@ import Header from "./Header/Header";
 import ListofTile from "./Tiles/ListofTile";
 import "./Home.css";
 
-
-
-
-
-
 const Home = () => {
+  console.log("home");
   const isMounted = useRef(false);
   const [userProfile, setUserProfile] = useState();
 
@@ -39,9 +35,6 @@ const Home = () => {
     }
   };
 
-
-
-
   useEffect(() => {
     isMounted.current = true;
     return () => {
@@ -51,21 +44,24 @@ const Home = () => {
 
   useEffect(() => {
     if (isMounted.current === true) {
-      __getFullUserProfile();
-
       console.log(`get user profile ....`);
+      __getFullUserProfile();
       //fetch user profile
       //fetch all device
     }
     return () => {
       isMounted.current = false;
     };
-  }, []);
+  }, [userProfile]);
 
   return (
     <div className="home">
-      <Header userProfile={userProfile} />
-      <ListofTile />
+      {userProfile && (
+        <>
+          <Header userProfile={userProfile} /> 
+          <ListofTile />
+        </>
+      )}
     </div>
   );
 };

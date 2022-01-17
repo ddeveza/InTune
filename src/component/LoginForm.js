@@ -4,10 +4,27 @@ import Logo from "../logo/Assets/BeCloudSafe Logo Cropped.png";
 import MSButton from "../logo/Assets/ms-symbollockup_signin_dark.png";
 import "./LoginForm.css";
 import { Paper, Button } from "@material-ui/core";
-import LoginFormLogic from '../customHook/LoginFormLogic'
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "../authConfig";
 
 function LoginForm() {
-  const __handleMsLogin = LoginFormLogic();
+  const { instance } = useMsal();
+
+  const __handleMsLogin = async (loginType) => {
+    if (loginType === "popup") {
+      // localStorage.clear();
+      await instance
+        .loginPopup(loginRequest)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((e) => {
+          const error = JSON.stringify(e);
+          console.log(error);
+        });
+    }
+  };
+
 
   return (
     <div className="loginFormContainer">

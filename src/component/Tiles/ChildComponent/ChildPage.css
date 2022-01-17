@@ -12,7 +12,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -42%);
-    padding:10px;
+    padding:20px;
+    z-index: 99999;
 }
 
 .modal{

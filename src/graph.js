@@ -202,8 +202,8 @@ export async function getUserPhoto() {
 
     return axios
       .get(graphConfig.photo, options)
-      .then((res) => {
-        return res.data;
+      .then( (res) => {
+        return  res.data;
       })
       .catch(function (error) {
         return { error: error };
@@ -335,13 +335,13 @@ export const getOwnerDetails = async (deviceID) => {
       "Content-Type": "application/json",
     };
 
-    const options = {
+    const options =  {
       headers: headers,
     };
     return axios
-      .get(graphConfig.deviceOwner.replace("[deviceID]", deviceID), options)
-      .then((res) => {
-        return res.data.value;
+      .get(graphConfig.deviceOwner.replace("[deviceID]", deviceID),  options)
+      .then(async (res) => {
+        return await res.data.value;
       })
       .catch(function (error) {
         return { error: error };
