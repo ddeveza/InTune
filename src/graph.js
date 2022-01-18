@@ -155,7 +155,27 @@ export const getDormantAcct = async (ownerID) => {
       headers: headers,
     };
 
-    return axios
+
+   return axios.get(graphConfig.dormantUser.replace("[userID]", ownerID), options).then(async (res)=>{
+        const {lastSignInDateTime} = res.data.signInActivity;
+        let noOfDaysFromLastSignIn = 0;
+       try {  
+        const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+        let firstDate = new Date(lastSignInDateTime);
+        let secondDate = Date.now();
+        noOfDaysFromLastSignIn = Math.round(Math.abs((secondDate - firstDate) / oneDay));
+        
+        return {lastSignInDateTime , noOfDaysFromLastSignIn}
+
+
+       } catch (error) {
+         console.log('SignInActivity is not found')
+       }
+    }).catch(err=>{
+      console.log(err);
+    })
+
+   /*  return axios
       .get(graphConfig.dormant, options)
       .then(async (res) => {
         const account = res.data.value;
@@ -178,7 +198,7 @@ export const getDormantAcct = async (ownerID) => {
       })
       .catch(function (error) {
         return { error: error };
-      });
+      }); */
   } else {
     return { error: "Something went wrong during API Call" };
   }

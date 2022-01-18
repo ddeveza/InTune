@@ -127,6 +127,7 @@ export const graphConfig = {
   numGlobalAdminAcct: `https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`,
   percentAcctMFA: `https://graph.microsoft.com/v1.0/security/secureScores?$orderby=createDateTime&$top=1`,
   dormant: `https://graph.microsoft.com/beta/users?$select=displayName,userPrincipalName,mail,id,CreatedDateTime,signInActivity,UserType`,
+  dormantUser:`https://graph.microsoft.com/beta/users/[userID]/?$select=displayName,userPrincipalName,mail,id,CreatedDateTime,signInActivity,UserType`,
   devices: `https://graph.microsoft.com/beta/devices?$select=displayName, id, deviceId, registrationDateTime, approximateLastSignInDateTime, operatingSystem, operatingSystemVersion, profileType,trustType`,
   manageDevices: `https://graph.microsoft.com/beta/deviceManagement/managedDevices?$select=deviceName,operatingSystem,osVersion,deviceType,serialNumber,model,manufacturer,imei,phoneNumber,userDisplayName,subscriberCarrier,joinType,enrolledDateTime,lastSyncDateTime,ownerType,managedDeviceName,azureActiveDirectoryDeviceId,autopilotEnrolled`,
   deviceOwner:`https://graph.microsoft.com/beta/devices/[deviceID]/registeredOwners?$select=displayName,mobilePhone,mail,id`

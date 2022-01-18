@@ -1,11 +1,10 @@
 import { Backdrop, Modal } from "@material-ui/core";
 
 import "./ChildPage.css";
-import { useReducer, useEffect, useRef , useState , useContext } from "react";
+import { useReducer, useEffect, useRef } from "react";
 import logo from "../../../logo/Assets/icons8-multiple_devices.png";
 import forwardArrow from "../../../logo/icons8-forward.png";
 import backwardArrow from "../../../logo/icons8-back.png";
-import {DevicesContext} from "../Tile"
 
 let initialState = {
   title: "",
@@ -20,24 +19,20 @@ let initialState = {
 
 const reducer = (state, action) => {
   const { payload } = action;
- 
+
   if (action.type === "forward") {
   } else if (action.type === "backward") {
   } else if (action.type === "initialize") {
-    if (payload.mobile.length > 0) return {...state , title: "Mobile Devices" , body:payload.mobile }
-    else if (payload.nonMobile.length > 0) return { ...state, title: "Non-Mobile Devices", body: payload.nonMobile ,  };
-    else if (payload.unManage.length > 0) return {  ...state , title: "Non-Mobile Devices", body: payload.unManage ,  };
-    else  return {...state}
-     
+    if (payload.mobile.length > 0) return { ...state, title: "Mobile Devices", body: payload.mobile };
+    else if (payload.nonMobile.length > 0) return { ...state, title: "Non-Mobile Devices", body: payload.nonMobile };
+    else if (payload.unManage.length > 0) return { ...state, title: "Non-Mobile Devices", body: payload.unManage };
+    else return { ...state };
   }
 };
 
-const ChildPage = ({ isOPen, close, userPhoto }) => {
-  const devices = useContext(DevicesContext);
+const ChildPage = ({ isOPen, close, userPhoto, devices }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  
 
- 
   const isMounted = useRef(false);
   useEffect(() => {
     isMounted.current = true;
@@ -47,14 +42,14 @@ const ChildPage = ({ isOPen, close, userPhoto }) => {
   }, []);
 
   useEffect(() => {
-    if (isMounted.current && (devices.mobile.length > 0 || devices.nonMobile.length > 0 || devices.unManage.length > 0 )  ) {
-     dispatch({ type: "initialize", payload: devices });
+    if (isMounted.current) {
+      console.log(devices);
+      dispatch({ type: "initialize", payload: devices });
     }
     return () => {
       isMounted.current = false;
-      
     };
-  }, [isOPen]);
+  }, [devices]);
 
   return (
     <Modal

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useReducer, createContext } from "react";
+import React, { useRef, useEffect, useReducer } from "react";
 import "./Tile.css";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useToggleModal } from "../../customHook/useToggleModal";
@@ -37,7 +37,7 @@ const _countDormantDevices = (manageDevices, unManageDevices) => {
   return dormantManageDevices.length + dormantUnManageDevices.length;
 };
 
-export const DevicesContext = React.createContext();
+
 
 const initialState = {
   picture: "",
@@ -50,6 +50,7 @@ const initialState = {
   lastLogin: "",
   dormantDevices: 0,
   error: "",
+  status: "",
 };
 
 const reducer = (state, action) => {
@@ -68,7 +69,17 @@ const reducer = (state, action) => {
       return { ...state, mobile: mobileDevices, nonMobile: nonMobile, unManage: unManageDevices, manageDevices: manageDevices, dormantDevices: dormantDevices };
 
     case "LAST_LOGIN":
-      return { ...state, lastLogin: formatDate(payload) };
+      //Amber: FFBF00 Red: F5055B Green: 5BF505
+      let color = "";
+      if (payload.noOfDaysFromLastSignIn > 90) {
+        color = "F5055B";
+      } else if (payload.noOfDaysFromLastSignIn > 30) {
+        color = "FFBF00";
+      } else {
+        color = "5BF505";
+      }
+
+      return { ...state, lastLogin: formatDate(payload.lastSignInDateTime), status: color };
     case "CLEAN_UP":
       return { ...state, picture: "", name: "", totalDevices: 0, mobile: [], nonMobile: [], unManage: [], manageDevices: [], lastLogin: "", dormantDevices: 0, error: "" };
 
@@ -79,7 +90,7 @@ const reducer = (state, action) => {
 
 const Tile = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { mobile, nonMobile, unManage } = state;
+  const { mobile, nonMobile, unManage, lastLogin } = state;
   const isMounted = useRef(false);
 
   useEffect(() => {
@@ -98,7 +109,7 @@ const Tile = (props) => {
       dispatch({ type: "FILTER_DEVICES", payload: props.devices });
       getDormantAcct(props.devices[0].ownerID)
         .then((res) => {
-          dispatch({ type: "LAST_LOGIN", payload: res[0].signInActivity.lastSignInDateTime });
+          dispatch({ type: "LAST_LOGIN", payload: res });
         })
         .catch((err) => console.log(err));
     }
@@ -106,7 +117,7 @@ const Tile = (props) => {
       isMounted.current = false;
       dispatch({ type: "CLEAN_UP" });
     };
-  }, []);
+  }, [props.name]);
 
   const [toggle, handleToggle] = useToggleModal(false);
 
@@ -114,7 +125,7 @@ const Tile = (props) => {
     <>
       <div className="tile" onClick={handleToggle}>
         <div className="tile__head">
-          <CircleIcon className="tile__icon" />
+          <CircleIcon className="tile__icon" style={{ color: state.status }} />
           <div className="tile__name__logo">
             <p>{props.name}</p>
             <img src={state.picture} alt="UserPhoto" />
@@ -134,9 +145,9 @@ const Tile = (props) => {
           </div>
         </div>
       </div>
-      <DevicesContext.Provider value={{ mobile, nonMobile, unManage }}>
-        <ChildPage isOPen={toggle} close={handleToggle}  userPhoto={state.picture} />
-      </DevicesContext.Provider>
+     
+       {lastLogin !== '' && <ChildPage isOPen={toggle} close={handleToggle} userPhoto={state.picture} devices={{ mobile, nonMobile, unManage, lastLogin }}/>}
+
     </>
   );
 };

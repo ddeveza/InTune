@@ -5,14 +5,12 @@ import { blobToBase64, getAllDevices, getMemberPhoto, getOwnerDetails, getUserAv
 import _ from "lodash";
 
 const ListofTile = () => {
- 
   const isMounted = useRef(false);
   const [devicesPerUser, setDevicesPerUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const _getAllDevice = async () => {
-    console.log('call GetAllDecvuice')
     const allDevices = await getAllDevices();
 
     if (allDevices?.error) {
@@ -45,9 +43,7 @@ const ListofTile = () => {
 
           let detailsDeviceOwner = await _getOwnerProfile(device.id);
 
-          
           const { displayName: devOwner, photo, id: ownerID } = await detailsDeviceOwner[0];
-          
 
           temp = { ...temp, mobile, devOwner, photo, ownerID };
           newListoFDevices = [...newListoFDevices, temp];
@@ -124,10 +120,8 @@ const ListofTile = () => {
       isMounted.current = false;
     };
   }, []);
- 
 
   const ArrayOfTiles = () => {
-    console.log('ArrayOfTiles')
     return _.map(devicesPerUser, (eachDevice, index) => {
       return <Tile key={index} devices={eachDevice} name={index} />;
     });
@@ -140,7 +134,7 @@ const ListofTile = () => {
 
         {error && <h1 style={{ color: "red" }}>0 devices found......</h1>}
 
-        <ArrayOfTiles />
+        {!isLoading && <ArrayOfTiles />}
       </div>
     </div>
   );
