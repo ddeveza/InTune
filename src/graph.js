@@ -344,7 +344,7 @@ export const manageDevices = async () => {
 };
 
 export const getOwnerDetails = async (deviceID) => {
-  const accounts = instance.getAllAccounts();
+  const accounts =  instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token = await instance.acquireTokenSilent(requestMsal);
 
@@ -358,8 +358,8 @@ export const getOwnerDetails = async (deviceID) => {
     const options =  {
       headers: headers,
     };
-    return axios
-      .get(graphConfig.deviceOwner.replace("[deviceID]", deviceID),  options)
+    return await axios
+      .get( graphConfig.deviceOwner.replace("[deviceID]", deviceID),  options)
       .then(async (res) => {
         return await res.data.value;
       })

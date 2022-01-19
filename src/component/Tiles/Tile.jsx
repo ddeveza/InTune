@@ -146,7 +146,7 @@ const Tile = (props) => {
         </div>
       </div>
      
-       {lastLogin !== '' && <ChildPage isOPen={toggle} close={handleToggle} userPhoto={state.picture} devices={{ mobile, nonMobile, unManage, lastLogin }}/>}
+       {lastLogin !== '' && <ChildPage isOPen={toggle} close={handleToggle} userPhoto={state.picture} devices={[ mobile, nonMobile, unManage ]}/>}
 
     </>
   );
