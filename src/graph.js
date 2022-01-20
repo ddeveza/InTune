@@ -155,27 +155,27 @@ export const getDormantAcct = async (ownerID) => {
       headers: headers,
     };
 
-
-   return axios.get(graphConfig.dormantUser.replace("[userID]", ownerID), options).then(async (res)=>{
-        const {lastSignInDateTime} = res.data.signInActivity;
+    return axios
+      .get(graphConfig.dormantUser.replace("[userID]", ownerID), options)
+      .then(async (res) => {
+        const { lastSignInDateTime } = res.data.signInActivity;
         let noOfDaysFromLastSignIn = 0;
-       try {  
-        const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-        let firstDate = new Date(lastSignInDateTime);
-        let secondDate = Date.now();
-        noOfDaysFromLastSignIn = Math.round(Math.abs((secondDate - firstDate) / oneDay));
-        
-        return {lastSignInDateTime , noOfDaysFromLastSignIn}
+        try {
+          const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+          let firstDate = new Date(lastSignInDateTime);
+          let secondDate = Date.now();
+          noOfDaysFromLastSignIn = Math.round(Math.abs((secondDate - firstDate) / oneDay));
 
+          return { lastSignInDateTime, noOfDaysFromLastSignIn };
+        } catch (error) {
+          console.log("SignInActivity is not found");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-       } catch (error) {
-         console.log('SignInActivity is not found')
-       }
-    }).catch(err=>{
-      console.log(err);
-    })
-
-   /*  return axios
+    /*  return axios
       .get(graphConfig.dormant, options)
       .then(async (res) => {
         const account = res.data.value;
@@ -205,7 +205,7 @@ export const getDormantAcct = async (ownerID) => {
 };
 
 export async function getUserPhoto() {
-  const accounts =  instance.getAllAccounts();
+  const accounts = instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token = await instance.acquireTokenSilent(requestMsal);
   if (token !== undefined) {
@@ -222,8 +222,8 @@ export async function getUserPhoto() {
 
     return axios
       .get(graphConfig.photo, options)
-      .then( (res) => {
-        return  res.data;
+      .then((res) => {
+        return res.data;
       })
       .catch(function (error) {
         return { error: error };
@@ -344,7 +344,7 @@ export const manageDevices = async () => {
 };
 
 export const getOwnerDetails = async (deviceID) => {
-  const accounts =  instance.getAllAccounts();
+  const accounts = instance.getAllAccounts();
   const requestMsal = { ...loginRequest, account: accounts[0] };
   const token = await instance.acquireTokenSilent(requestMsal);
 
@@ -355,17 +355,31 @@ export const getOwnerDetails = async (deviceID) => {
       "Content-Type": "application/json",
     };
 
-    const options =  {
+    const options = {
       headers: headers,
     };
-    return await axios
-      .get( graphConfig.deviceOwner.replace("[deviceID]", deviceID),  options)
+
+    
+
+    return axios
+      .get(graphConfig.deviceOwner.replace("[deviceID]", deviceID), options)
       .then(async (res) => {
         return await res.data.value;
       })
       .catch(function (error) {
         return { error: error };
       });
+
+    /*  return setTimeout( () => {
+       axios
+        .get(graphConfig.deviceOwner.replace("[deviceID]", deviceID), options)
+        .then(async (res) => {
+          return await res.data.value;
+        })
+        .catch(function (error) {
+          return { error: error };
+        });
+    }, 1000); */
   } else {
     return { error: "Something went wrong during API Call" };
   }

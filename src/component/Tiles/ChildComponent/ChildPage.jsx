@@ -56,8 +56,17 @@ const reducer = (state, action) => {
   } else if (action.type === "initialize") {
     let newList = payload
       .map((each, index) => {
-        if (index === 0 && each.length > 0) return { name: "MOBILE", devices: each };
-        if (index === 1 && each.length > 0) return { name: "NON-MOBILE", devices: each };
+        if (index === 0 && each.length > 0) {
+
+            let manageDevices= each?.filter(data => data.manageDevices )
+            if (manageDevices.length) return { name: "MOBILE", devices: manageDevices };
+          
+        }
+        if (index === 1 && each.length > 0) {
+            let manageDevices= each?.filter(data => data.manageDevices )
+            if (manageDevices.length ) return  { name: "NON-MOBILE", devices: manageDevices }
+          
+        };
         if (index === 2 && each.length > 0) return { name: "NON-MANAGED", devices: each };
       })
       .filter((each) => each !== undefined);
@@ -145,7 +154,11 @@ const ChildPage = ({ isOPen, close, userPhoto, devices, name }) => {
 
               {state?.body?.map((data, index) => {
                 /* return <p>{datas.displayName}</p>; */
-                  return <ChildBody title={state.title} data={data}></ChildBody>
+                  return  <ChildBody title={state.title} data={data}></ChildBody>
+               /*    if (state.title === "MOBILE" || state.title === "NON-MOBILE" ) return data.manageDevices &&   <ChildBody title={state.title} data={data}></ChildBody>
+                  else if (state.title === "NON-MANAGED") return <ChildBody title={state.title} data={data}></ChildBody> */
+           
+                  
               })}
             </Scrollbars>
 

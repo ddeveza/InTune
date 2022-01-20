@@ -35,15 +35,15 @@ const ListofTile = () => {
           let foundManageDevices = _.findIndex(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
           
           if (foundManageDevices > -1) {
-            let managed = _.find(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
+            let managed =  _.find(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
             let lastSyncDateTime = managed.lastSyncDateTime;
             temp = { ...device, manageDevices: true, lastSyncDateTime , managed};
-            console.log(temp);
+           
           } else {
             temp = { ...device, manageDevices: false };
           }
 
-          let detailsDeviceOwner = await _getOwnerProfile(device.id);
+          let detailsDeviceOwner = await _getOwnerProfile(await device.id);
 
           const { displayName: devOwner, photo, id: ownerID } = await detailsDeviceOwner[0];
 
@@ -67,8 +67,8 @@ const ListofTile = () => {
     return allDevices;
   };
 
-  const _getOwnerProfile = async (id) => {
-    let deviceOwner = await getOwnerDetails(id);
+  const _getOwnerProfile = async ( id) => {
+    let deviceOwner = await getOwnerDetails(await id);
     if (deviceOwner?.error) {
       console.log("Error calling the owner details");
     } else {
