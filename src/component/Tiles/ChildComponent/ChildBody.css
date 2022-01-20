@@ -1,0 +1,12 @@
+.childbody__container {
+    padding: 10px;
+}
+
+span {
+    font-weight: 700;
+    font-size:18px;
+}
+
+.childbody__container > p {
+    margin: 0;
+}

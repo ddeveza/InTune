@@ -20,9 +20,9 @@ const ListofTile = () => {
 
       if (allDevices.length > 0) {
         setError(false);
-
+        
         let listOfManageDevices = await _getAllManageDevices();
-
+       
         let newListoFDevices = [];
         for (const device of allDevices) {
           let temp = {};
@@ -33,10 +33,12 @@ const ListofTile = () => {
           }
 
           let foundManageDevices = _.findIndex(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
+          
           if (foundManageDevices > -1) {
-            let { lastSyncDateTime } = _.find(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
-
-            temp = { ...device, manageDevices: true, lastSyncDateTime };
+            let managed = _.find(listOfManageDevices, { azureActiveDirectoryDeviceId: device.deviceId });
+            let lastSyncDateTime = managed.lastSyncDateTime;
+            temp = { ...device, manageDevices: true, lastSyncDateTime , managed};
+            console.log(temp);
           } else {
             temp = { ...device, manageDevices: false };
           }
@@ -47,9 +49,10 @@ const ListofTile = () => {
 
           temp = { ...temp, mobile, devOwner, photo, ownerID };
           newListoFDevices = [...newListoFDevices, temp];
+          
           temp = {};
         }
-
+          
         const groupListByUser = _.groupBy(newListoFDevices, "devOwner");
 
         setDevicesPerUser(groupListByUser);
