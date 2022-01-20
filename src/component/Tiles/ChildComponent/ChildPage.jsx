@@ -154,7 +154,7 @@ const ChildPage = ({ isOPen, close, userPhoto, devices, name }) => {
 
               {state?.body?.map((data, index) => {
                 /* return <p>{datas.displayName}</p>; */
-                  return  <ChildBody title={state.title} data={data}></ChildBody>
+                  return  <ChildBody key={index} title={state.title} data={data}></ChildBody>
                /*    if (state.title === "MOBILE" || state.title === "NON-MOBILE" ) return data.manageDevices &&   <ChildBody title={state.title} data={data}></ChildBody>
                   else if (state.title === "NON-MANAGED") return <ChildBody title={state.title} data={data}></ChildBody> */
            

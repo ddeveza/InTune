@@ -308,4 +308,4 @@ export const imgPlaceHolder =
 //export const baseURL = `https://my.ppm.one/`;
 
 export const baseApiURL = window.location.href.includes("localhost") ? `http://localhost:3003/api/v1` : `https://becloudsafe-api.ppm.one/api/v1`;
-export const baseURL = window.location.href.includes("localhost") ? `http://localhost:3000` : "https://my.becloudsafe.com";
+export const baseURL = window.location.href.includes("localhost") ? `http://localhost:3000` : "https://orange-forest-0b82bff10.1.azurestaticapps.net";
