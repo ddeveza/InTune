@@ -5,6 +5,7 @@ import { useToggleModal } from "../../customHook/useToggleModal";
 import ChildPage from "./ChildComponent/ChildPage";
 import _ from "lodash";
 import { getDormantAcct } from "../../graph";
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
 const formatDate = (value) => {
   let date = new Date(value);
@@ -89,6 +90,7 @@ const reducer = (state, action) => {
 };
 
 const Tile = (props) => {
+  
   const [state, dispatch] = useReducer(reducer, initialState);
   const { mobile, nonMobile, unManage, lastLogin } = state;
   const isMounted = useRef(false);
@@ -120,7 +122,9 @@ const Tile = (props) => {
   }, [props.name]);
 
   const [toggle, handleToggle] = useToggleModal(false);
+  
 
+  
   return (
     <>
       <div className="tile" onClick={handleToggle}>
@@ -128,7 +132,10 @@ const Tile = (props) => {
           <CircleIcon className="tile__icon" style={{ color: state.status }} />
           <div className="tile__name__logo">
             <p>{props.name}</p>
-            <img src={state.picture} alt="UserPhoto" />
+            <Tooltip title={props.name} placement="top-start">
+                <img src={state.picture} alt="UserPhoto" />
+            </Tooltip>
+            
           </div>
         </div>
         <div className="tile__body">

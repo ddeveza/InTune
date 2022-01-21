@@ -58,8 +58,9 @@ const Home = () => {
     <div className="home">
       {userProfile && (
         <>
+          
           <Header userProfile={userProfile} /> 
-          <ListofTile />
+          <ListofTile userProfile={userProfile}/>
         </>
       )}
     </div>
