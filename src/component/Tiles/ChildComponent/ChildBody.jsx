@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect, useState , useRef } from "react";
 import "./ChildBody.css";
+import CircleIcon from "@mui/icons-material/Circle"
 
 const ChildBody = (props) => {
+
+  const [status, setStatus] = useState("");
+  const isMounted = useRef(false);
+
+  console.log(props);
 
   const _formatDate = (value) => {
     let date = new Date(value);
@@ -10,17 +16,48 @@ const ChildBody = (props) => {
     const year = date.toLocaleString("default", { year: "numeric" });
     return day + "-" + month + "-" + year;
   };
-  console.log(props)
 
+
+  const _getDaysDiff = (lastSignIn) => {
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    let firstDate = new Date(lastSignIn);
+    let secondDate = Date.now();
+    let noOfDaysFromLastSignIn = Math.round(Math.abs((secondDate - firstDate) / oneDay));
+  
+    return noOfDaysFromLastSignIn;
+  };
+
+  useEffect ( ()=> {
+      isMounted.current = true
+      return ()=>{
+        isMounted.current = false
+      }
+  },[])
+
+
+  useEffect (()=> {
+
+      if (isMounted.current) {
+        const lastLoginDate =   data.manageDevices? _formatDate(data.managed.lastSyncDateTime) : _formatDate(data.approximateLastSignInDateTime)
+        const noOfDayse = _getDaysDiff (lastLoginDate);
+        if (noOfDayse > 90) setStatus("F5055B") 
+        else if (noOfDayse > 30) setStatus("FFBF00")
+        else setStatus("5BF505")
+        
+      }
+   
+  }, [props])
+
+ 
   const { data } = props;
   return (
     <div className="childbody__container">
       <p>
         <span>Device Name:</span>
-        {data.displayName}
+        {data.manageDevices ? data.managed.deviceName : data.displayName}
       </p>
       <p>
-        <span>Device: </span>
+        <span>Device:</span>
         {data?.managed?.manufacturer}
       </p>
       <p>
@@ -41,6 +78,7 @@ const ChildBody = (props) => {
           </p>
           <p>
             <span>Phone Number:</span>
+            {data.managed.phoneNumber}
           </p>
           <p>
             <span>Carrier:</span>
@@ -55,26 +93,30 @@ const ChildBody = (props) => {
             {data?.managed?.autopilotEnrolled ? "Yes" : "No"}
           </p>
           <p>
-            <span>Enrolment Type: </span>
+            <span>Enrolment Type:</span>
+            {data.managed.joinType}
           </p>
         </>
       )}
       <p>
-        <span>Owner: </span>
+        <span>Owner:</span>
         {data.devOwner}
       </p>
       <p>
         <span>Date Enrolled: </span>
-        {_formatDate(data?.managed?.enrolledDateTime)}
+        {data.manageDevices ?  _formatDate(data?.managed?.enrolledDateTime) : _formatDate(data.registrationDateTime)}
       </p>
       <p>
         <span>Last Seen:</span>
+        {data.manageDevices? _formatDate(data.managed.lastSyncDateTime) : _formatDate(data.approximateLastSignInDateTime)}
       </p>
       <p>
-        <span>Ownership:</span>
+        
+        {data.manageDevices && <><span>Ownership:</span>{data.managed.ownerType}</>}
       </p>
-      <p>
+      <p className="childbody__status">
         <span>Status:</span>
+        <CircleIcon className="tile__icon" style={{ color:status }} />
       </p>
     </div>
   );

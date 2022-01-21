@@ -3,6 +3,8 @@ import Tile from "./Tile";
 import "./ListofTile.css";
 import { blobToBase64, getAllDevices, getMemberPhoto, getOwnerDetails, getUserAvatar, imgPlaceHolder, manageDevices } from "../../graph";
 import _ from "lodash";
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 const ListofTile = () => {
   const isMounted = useRef(false);
@@ -133,7 +135,7 @@ const ListofTile = () => {
   return (
     <div className="container">
       <div className="tiles__container">
-        {isLoading && <h1>Loading.......</h1>}
+        {isLoading && <div style={{width:"100%" , color:"rgba(42, 129, 163, 1)"}}><h1>Loading.......</h1> <LinearProgress /></div>}
 
         {error && <h1 style={{ color: "red" }}>0 devices found......</h1>}
 

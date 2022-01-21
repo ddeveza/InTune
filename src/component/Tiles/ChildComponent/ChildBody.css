@@ -2,7 +2,7 @@
     padding: 10px;
 }
 
-span {
+.childbody__container > p >span {
     font-weight: 700;
     font-size:18px;
     color:#626262;
@@ -16,4 +16,11 @@ span {
     color:grey;
     font-family: sans-serif;
     letter-spacing: 1px;
+    padding-bottom: 5px;
+}
+
+.childbody__status {
+    display:flex;
+    align-items: center;
+    
 }
