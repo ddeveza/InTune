@@ -352,6 +352,7 @@ export const getOwnerDetails = async (deviceID) => {
     const headers = {
       Authorization: `Bearer ${token.accessToken}`,
       "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, OPTIONS",
       "Content-Type": "application/json",
     };
 
