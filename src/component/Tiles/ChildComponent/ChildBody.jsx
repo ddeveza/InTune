@@ -7,7 +7,7 @@ const ChildBody = (props) => {
   const [status, setStatus] = useState("");
   const isMounted = useRef(false);
 
-  console.log(props);
+
 
   const _formatDate = (value) => {
     let date = new Date(value);
