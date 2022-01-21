@@ -363,8 +363,8 @@ export const getOwnerDetails = async (deviceID) => {
 
     return axios
       .get(graphConfig.deviceOwner.replace("[deviceID]", deviceID), options)
-      .then(async (res) => {
-        return await res.data.value;
+      .then( (res) => {
+        return  res.data.value;
       })
       .catch(function (error) {
         return { error: error };

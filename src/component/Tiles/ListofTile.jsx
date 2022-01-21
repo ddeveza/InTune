@@ -48,11 +48,15 @@ const ListofTile = () => {
 
           let detailsDeviceOwner = await _getOwnerProfile(await device.id);
 
+         
+
           const { displayName: devOwner, photo, id: ownerID } = await detailsDeviceOwner[0];
 
           temp = { ...temp, mobile, devOwner, photo, ownerID };
           newListoFDevices = [...newListoFDevices, temp];
           
+
+         
           temp = {};
         }
           
@@ -71,7 +75,10 @@ const ListofTile = () => {
   };
 
   const _getOwnerProfile = async ( id) => {
-    let deviceOwner = await getOwnerDetails(await id);
+    let userID = await id;
+   
+    let deviceOwner = await getOwnerDetails(userID);
+    
     if (deviceOwner?.error) {
       console.log("Error calling the owner details");
     } else {
