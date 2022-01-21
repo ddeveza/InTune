@@ -136,7 +136,7 @@ const ListofTile = () => {
   return (
     <div className="container">
       <div className="tiles__container">
-        {isLoading && <div style={{width:"100%" , color:"rgba(42, 129, 163, 1)"}}><h1>Loading.......</h1> <LinearProgress /></div>}
+        {isLoading && <div style={{width:"100%" , color:"rgba(42, 129, 163, 1)"}}><h1>Loading</h1> <LinearProgress /></div>}
 
         {error && <h1 style={{ color: "red" }}>0 devices found......</h1>}
 
