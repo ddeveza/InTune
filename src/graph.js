@@ -360,12 +360,20 @@ export const getOwnerDetails = async (deviceID) => {
       headers: headers,
     };
 
-    
+    /*  const eUrl = Buffer.from(`https://haveibeenpwned.com/api/v3/breachedaccount/${value}?truncateResponse=false`).toString("base64");
 
+  return fetch(`https://api.ppm.one/hibp/?url=${eUrl}`, requestOptions)
+    .then((response) => response.text())
+    .then((result) => result)
+    .catch((error) => console.log(error)); */
+
+    const url = graphConfig.deviceOwner.replace("[deviceID]", deviceID);
+    //const corsFixed = 'https://cors-anywhere.herokuapp.com/';
+   
     return axios
-      .get(graphConfig.deviceOwner.replace("[deviceID]", deviceID), options)
-      .then( (res) => {
-        return  res.data.value;
+      .get(`${url}`, options)
+      .then((res) => {
+        return res.data.value;
       })
       .catch(function (error) {
         return { error: error };
