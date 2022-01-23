@@ -2,7 +2,7 @@
   "name": "intune",
   "version": "0.1.0",
   "private": true,
-  
+  "proxy" : "http://localhost:3000",
   "dependencies": {
     "@azure/msal-browser": "^2.21.0",
     "@azure/msal-common": "^6.0.0",
@@ -19,7 +19,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
     "buffer": "^6.0.3",
-   
+    "http-proxy-middleware": "^2.0.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "nanoid": "^3.1.30",
