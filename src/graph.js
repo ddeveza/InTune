@@ -373,6 +373,7 @@ export const getOwnerDetails = async (deviceID) => {
     return axios
       .get(`${url}`, options)
       .then((res) => {
+        console.log(res);
         return res.data.value;
       })
       .catch(function (error) {
