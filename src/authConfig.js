@@ -130,7 +130,7 @@ export const graphConfig = {
   dormantUser:`https://graph.microsoft.com/beta/users/[userID]/?$select=displayName,userPrincipalName,mail,id,CreatedDateTime,signInActivity,UserType`,
   devices: `https://graph.microsoft.com/beta/devices?$select=displayName, id, deviceId, registrationDateTime, approximateLastSignInDateTime, operatingSystem, operatingSystemVersion, profileType,trustType`,
   manageDevices: `https://graph.microsoft.com/beta/deviceManagement/managedDevices?$select=deviceName,operatingSystem,osVersion,deviceType,serialNumber,model,manufacturer,imei,phoneNumber,userDisplayName,subscriberCarrier,joinType,enrolledDateTime,lastSyncDateTime,ownerType,managedDeviceName,azureActiveDirectoryDeviceId,autopilotEnrolled`,
-  deviceOwner:`https://cors-anywhere.herokuapp.com/https://graph.microsoft.com/beta/devices/[deviceID]/registeredOwners?$select=displayName,mobilePhone,mail,id`
+  deviceOwner:`/beta/devices/[deviceID]/registeredOwners?$select=displayName,mobilePhone,mail,id`
   // getPlans: `https://graph.microsoft.com/v1.0/groups/[group-id]/planner/plans`,
   // getBuckets: "https://graph.microsoft.com/v1.0/planner/plans/[plan-id]/buckets",
   // postBucket: "https://graph.microsoft.com/v1.0/planner/buckets",
