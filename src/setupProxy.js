@@ -5,6 +5,7 @@ module.exports = function (app) {
         createProxyMiddleware("/beta/devices",{
             target:"https://graph.microsoft.com",
             secure:false ,
+            ws:true,
             changeOrigin:true
         })
     )
