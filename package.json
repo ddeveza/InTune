@@ -2,7 +2,7 @@
   "name": "intune",
   "version": "0.1.0",
   "private": true,
-  "proxy" : "https://graph.microsoft.com" ,
+
   "dependencies": {
     "@azure/msal-browser": "^2.21.0",
     "@azure/msal-common": "^6.0.0",
